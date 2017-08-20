@@ -1,0 +1,52 @@
+[
+	{
+		"$type": "Tile, Assembly-CSharp",
+		"price": 3,
+		"populationBonus": 2,
+		"reputationBonus": 0,
+		"incomeBonus": 0,
+		"typeIcon": 1,
+		"specialtyIcon": 0,
+		"rules": []
+	},
+	{
+		"$type": "Tile, Assembly-CSharp",
+		"price": 4,
+		"populationBonus": 0,
+		"reputationBonus": 0,
+		"incomeBonus": -1,
+		"typeIcon": 3,
+		"specialtyIcon": 0,
+		"rules": [
+			{
+				"$type": "AdjacencyRule, Assembly-CSharp",
+				"incomeBonus": 0,
+				"reputationBonus": 1,
+				"moneyBonus": 0,
+				"populationBonus": 0,
+				"types": [ 1, 2, 4 ],
+				"specialties": null
+			}
+		]
+	},
+	{
+		"$type": "Tile, Assembly-CSharp",
+		"price": 3,
+		"populationBonus": 0,
+		"reputationBonus": 0,
+		"incomeBonus": 1,
+		"typeIcon": 2,
+		"specialtyIcon": 0,
+		"rules": [
+			{
+				"$type": "AdjacencyRule, Assembly-CSharp",
+				"incomeBonus": 0,
+				"reputationBonus": -1,
+				"moneyBonus": 0,
+				"populationBonus": 0,
+				"types": [ 1, 3 ],
+				"specialties": null
+			}
+		]
+	}
+]
