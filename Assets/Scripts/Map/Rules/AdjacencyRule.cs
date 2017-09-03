@@ -21,6 +21,9 @@
 	{
 		if (HexGrid.IsAdjacent(self.Q, self.R, other.Q, other.R))
 		{
+			types = types ?? new System.Collections.Generic.List<TypeIcon>();
+			specialties = specialties ?? new System.Collections.Generic.List<SpecialtyIcon>();
+
 			if (types.Contains(other.typeIcon)
 				|| specialties.Contains(other.specialtyIcon))
 			{

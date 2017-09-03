@@ -33,7 +33,12 @@ public class Player
 		var ret = new List<Tile>();
 		foreach (int id in ids)
 		{
-			var tile = game.metadata[map.Get(q, r)];
+			if (id == -1)
+			{
+				continue;
+			}
+
+			var tile = game.metadata[id];
 			ret.Add(tile);
 		}
 
