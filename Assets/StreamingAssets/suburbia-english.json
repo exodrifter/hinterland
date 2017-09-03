@@ -1,0 +1,17 @@
+[
+	{
+		"$type": "TileLocalization, Assembly-CSharp",
+		"name": "Suburbs",
+		"file": "suburbia/suburbs.png"
+	},
+	{
+		"$type": "TileLocalization, Assembly-CSharp",
+		"name": "Community Park",
+		"file": "suburbia/community-park.png"
+	},
+	{
+		"$type": "TileLocalization, Assembly-CSharp",
+		"name": "Heavy Factory",
+		"file": "suburbia/heavy-factory.png"
+	}
+]

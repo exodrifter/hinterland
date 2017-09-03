@@ -10,6 +10,12 @@ public class TileData : Tile
 	}
 	private Player player;
 
+	public int TileID
+	{
+		get { return tileID; }
+	}
+	private int tileID;
+
 	public int Q
 	{
 		get { return q; }
@@ -24,10 +30,11 @@ public class TileData : Tile
 
 	private const float size = 1;
 
-	public TileData(Tile tile, Player player, int q, int r)
+	public TileData(Tile tile, Player player, int tileID, int q, int r)
 		: base(tile)
 	{
 		this.player = player;
+		this.tileID = tileID;
 		this.q = q;
 		this.r = r;
 	}
@@ -36,6 +43,6 @@ public class TileData : Tile
 	{
 		var x = size * 3f / 2f * q;
 		var y = size * Mathf.Sqrt(3f) * (r + q / 2f);
-		return new Vector3(x, -y, 0);
+		return new Vector3(x, y, 0);
 	}
 }

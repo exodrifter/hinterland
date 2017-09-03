@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
 		game.activePlayer = player;
 
 		game.PlaceTile(game.metadata[0], 0, 0);
-		game.PlaceTile(game.metadata[1], 1, 0);
+		game.PlaceTile(game.metadata[1], 0, 1);
+		game.PlaceTile(game.metadata[2], 0, 2);
 	}
 
 	private Tile[] LoadMetadata()

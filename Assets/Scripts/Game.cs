@@ -31,7 +31,8 @@ public class Game
 		activePlayer.money -= tile.price;
 
 		// Resolve tile rules
-		var tiledata = new TileData(tile, activePlayer, q, r);
+		var tileID = Array.IndexOf(metadata, tile);
+		var tiledata = new TileData(tile, activePlayer, tileID, q, r);
 		foreach (var rule in tile.rules)
 		{
 			rule.RunNow(this, activePlayer, tiledata);
@@ -70,7 +71,8 @@ public class Game
 		activePlayer.doubleCounters--;
 
 		// Double rule effect
-		var tiledata = new TileData(tile, activePlayer, q, r);
+		var tileID = Array.IndexOf(metadata, tile);
+		var tiledata = new TileData(tile, activePlayer, tileID, q, r);
 		foreach (var rule in tile.rules)
 		{
 			rule.RunNow(this, activePlayer, tiledata);

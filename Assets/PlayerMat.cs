@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using Newtonsoft.Json;
+using System.Collections;
+using System.IO;
+using UnityEngine;
 
 public class PlayerMat : MonoBehaviour
 {
@@ -10,6 +13,13 @@ public class PlayerMat : MonoBehaviour
 
 	[SerializeField]
 	private Pool pool;
+
+	private TileLocalization[] localization;
+
+	void Awake()
+	{
+		localization = LoadLocalization ();
+	}
 
 	void Update()
 	{
@@ -31,7 +41,30 @@ public class PlayerMat : MonoBehaviour
 			go.transform.position = tile.GetPosition();
 
 			// Set Material/Texture
+			var file = localization[tile.TileID].file;
+			StartCoroutine(LoadImage(file, go.GetComponent<MeshRenderer>()));
 		}
 		pool.UpdateActiveState();
+	}
+
+	private TileLocalization[] LoadLocalization()
+	{
+		var settings = new JsonSerializerSettings();
+		settings.TypeNameHandling = TypeNameHandling.All;
+
+		var metadataJson = File.ReadAllText(
+			Path.Combine(Application.streamingAssetsPath, "suburbia-english.json"));
+		return JsonConvert.DeserializeObject<TileLocalization[]>(metadataJson, settings);
+	}
+
+	private IEnumerator LoadImage(string file, MeshRenderer renderer)
+	{
+		var path = Path.Combine (Application.streamingAssetsPath, file);
+		WWW request = new WWW ("file://" + path);
+
+		yield return request;
+
+		var texture = request.texture;
+		renderer.material.SetTexture ("_MainTex", texture);
 	}
 }
