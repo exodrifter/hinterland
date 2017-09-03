@@ -14,9 +14,9 @@ public class Pool
 
 	public void DespawnAll()
 	{
-		foreach (var go in spawned)
+		for (int i = spawned.Count - 1; i >= 0; --i)
 		{
-			pooled.Add(go);
+			pooled.Add(spawned[i]);
 		}
 
 		spawned.Clear();
