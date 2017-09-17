@@ -65,6 +65,7 @@ public class PlayerMat : MonoBehaviour
 		yield return request;
 
 		var texture = request.texture;
+		texture.filterMode = FilterMode.Point;
 		renderer.material.SetTexture ("_MainTex", texture);
 	}
 }
