@@ -15,19 +15,8 @@ public class HexRenderer : MonoBehaviour
 		}
 
 		var file = localization[tileID].file;
-		StartCoroutine(LoadImage(file, GetComponent<MeshRenderer>()));
-	}
-
-	private IEnumerator LoadImage(string file, MeshRenderer renderer)
-	{
-		var path = Path.Combine(Application.streamingAssetsPath, file);
-		WWW request = new WWW("file://" + path);
-
-		yield return request;
-
-		var texture = request.texture;
-		texture.filterMode = FilterMode.Point;
-		renderer.material.SetTexture("_MainTex", texture);
+		var renderer = GetComponent<MeshRenderer>();
+		ImageHelper.LoadImage (file, (tex) => {renderer.material.SetTexture("_MainTex", tex);});
 	}
 
 	private TileLocalization[] LoadLocalization()
