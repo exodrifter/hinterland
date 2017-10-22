@@ -11,6 +11,12 @@ public class Game
 	/// </summary>
 	public Player activePlayer;
 
+	public void PlaceTile(int tileID, int q, int r)
+	{
+		Tile tile = metadata [tileID];
+		PlaceTile (tile, q, r);
+	}
+
 	/// <summary>
 	/// Steps the game forward one turn
 	/// </summary>

@@ -15,6 +15,7 @@ public class Market : MonoBehaviour
 			var go = pool.Spawn();
 			go.GetComponent<Anchor>().offset = new Vector3(1.2f, -1 - i * 2, 1);
 			go.GetComponent<HexRenderer>().SetTileID(tiles[i]);
+			go.GetComponent<MarketHex> ().tileID = tiles [i];
 		}
 
 		pool.UpdateActiveState();
