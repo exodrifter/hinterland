@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
 	{
 		game = new Game();
 		game.metadata = LoadMetadata();
+		game.marketStacks = LoadMarketStacks();
 
 		var player = new Player();
 		player.money = 20;
@@ -33,5 +35,15 @@ public class GameManager : MonoBehaviour
 		var metadataJson = File.ReadAllText(
 				Path.Combine(Application.streamingAssetsPath, "metadata.json"));
 		return JsonConvert.DeserializeObject<Tile[]>(metadataJson, settings);
+	}
+
+	private MarketStack[] LoadMarketStacks()
+	{
+		var settings = new JsonSerializerSettings();
+		settings.TypeNameHandling = TypeNameHandling.All;
+
+		var metadataJson = File.ReadAllText(
+				Path.Combine(Application.streamingAssetsPath, "suburbia-market.json"));
+		return JsonConvert.DeserializeObject<MarketStack[]>(metadataJson, settings);
 	}
 }

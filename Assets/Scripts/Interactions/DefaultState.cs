@@ -15,7 +15,7 @@ public class DefaultState : State
 				MarketHex hex = hit.collider.gameObject.GetComponent<MarketHex> ();
 				if (!Util.IsNull (hex))
 				{
-					inter.PushState (new PurchaseState(hex.tileID));
+					inter.PushState (new PurchaseState(hex));
 				}
 
 				// add double

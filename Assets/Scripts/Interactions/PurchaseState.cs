@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PurchaseState : State
 {
-	private int tileID;
+	private MarketHex marketHex;
 
-	public PurchaseState(int tileID)
+	public PurchaseState(MarketHex marketHex)
 	{
-		this.tileID = tileID;
+		this.marketHex = marketHex;
 	}
 
 	// Update is called once per frame
@@ -25,9 +25,8 @@ public class PurchaseState : State
 				if (!Util.IsNull (hex))
 				{
 					// Place it
-					inter.gm.Game.PlaceTile (tileID, hex.Q, hex.R);
-
-					// TODO: Remove from Market
+					inter.gm.Game.PlaceTile (marketHex.tileID, hex.Q, hex.R);
+					marketHex.RemoveFromMarket();
 
 					// Go back to the previous state
 					inter.PopState();

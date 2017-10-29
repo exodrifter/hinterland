@@ -1,0 +1,14 @@
+{
+  "$type": "MarketStack[], Assembly-CSharp",
+  "$values": [
+    {
+      "$type": "MarketStack, Assembly-CSharp",
+      "counts": {
+        "$type": "System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[System.Int32, mscorlib]], mscorlib",
+        "0": 5,
+        "1": 5,
+        "2": 5
+      }
+    }
+  ]
+}

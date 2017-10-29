@@ -5,6 +5,7 @@ public class Game
 {
 	public List<Player> players = new List<Player>();
 	public Tile[] metadata = new Tile[0];
+	public MarketStack[] marketStacks= new MarketStack[0];
 
 	/// <summary>
 	/// Whose turn is it?
