@@ -35,6 +35,9 @@ public class Game
 		}
 
 		activePlayer.money -= tile.price;
+		activePlayer.income += tile.incomeBonus;
+		activePlayer.population += tile.populationBonus;
+		activePlayer.reputation += tile.reputationBonus;
 
 		// Resolve tile rules
 		var tileID = Array.IndexOf(metadata, tile);
@@ -52,7 +55,7 @@ public class Game
 		{
 			foreach (var otherData in player.GetTileData(this))
 			{
-				foreach (var rule in tile.rules)
+				foreach (var rule in otherData.rules)
 				{
 					rule.RunUpdate(this, activePlayer, otherData, tiledata);
 				}

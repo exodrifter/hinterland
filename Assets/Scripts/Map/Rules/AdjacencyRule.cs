@@ -4,6 +4,9 @@
 	{
 		Tile[] neighbors = player.GetNeighbors(game, self.Q, self.R);
 
+		types = types ?? new System.Collections.Generic.List<TypeIcon>();
+		specialties = specialties ?? new System.Collections.Generic.List<SpecialtyIcon>();
+
 		foreach (var tile in neighbors)
 		{
 			if (types.Contains(tile.typeIcon)
