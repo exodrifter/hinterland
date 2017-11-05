@@ -5,7 +5,7 @@ using UnityEngine;
 public class Market : MonoBehaviour
 {
 	[SerializeField]
-	private GameManager manager;
+	private Manager manager;
 
 	public Pool pool;
 

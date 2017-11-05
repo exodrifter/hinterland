@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Interaction : MonoBehaviour
 {
-	public GameManager gm;
+	public Manager gm;
 
 	private Stack<State> states = new Stack<State>();
 

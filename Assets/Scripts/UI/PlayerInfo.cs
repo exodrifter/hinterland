@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class PlayerInfo : MonoBehaviour
 {
 	[SerializeField]
-	private GameManager manager;
+	private Manager manager;
 
 	[SerializeField]
 	private int playerIndex;

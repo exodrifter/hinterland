@@ -6,7 +6,7 @@ using UnityEngine;
 public class HexRenderer : MonoBehaviour
 {
 	[SerializeField]
-	private GameManager manager;
+	private Manager manager;
 
 	public void SetTileID(int tileID)
 	{

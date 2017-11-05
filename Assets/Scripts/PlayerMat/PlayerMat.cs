@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMat : MonoBehaviour
 {
 	[SerializeField]
-	private GameManager manager;
+	private Manager manager;
 
 	[SerializeField]
 	private int playerIndex = 0;
