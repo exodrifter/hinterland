@@ -5,6 +5,8 @@ public class Game
 {
 	public List<Player> players = new List<Player>();
 	public Tile[] metadata = new Tile[0];
+	public TileLocalization[] localization = new TileLocalization[0];
+
 	public MarketStack[] marketStacks= new MarketStack[0];
 
 	/// <summary>
@@ -42,7 +44,7 @@ public class Game
 
 		// Resolve tile rules
 		var tileID = Array.IndexOf(metadata, tile);
-		var tiledata = new TileData(tile, activePlayer, tileID, q, r);
+		var tiledata = new TileData(tile, activePlayer, tileID, localization[tileID].name, localization[tileID].desc, q, r);
 		foreach (var rule in tile.rules)
 		{
 			rule.RunNow(this, activePlayer, tiledata);
@@ -82,7 +84,7 @@ public class Game
 
 		// Double rule effect
 		var tileID = Array.IndexOf(metadata, tile);
-		var tiledata = new TileData(tile, activePlayer, tileID, q, r);
+		var tiledata = new TileData(tile, activePlayer, tileID, localization[tileID].name, localization[tileID].desc, q, r);
 		foreach (var rule in tile.rules)
 		{
 			rule.RunNow(this, activePlayer, tiledata);

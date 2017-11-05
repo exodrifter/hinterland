@@ -24,11 +24,25 @@
 	}
 	private int r;
 
-	public TileData(Tile tile, Player player, int tileID, int q, int r)
+	public string TileName
+	{
+		get { return tileName; }
+	}
+	private string tileName;
+
+	public string Description
+	{
+		get { return desc; }
+	}
+	private string desc;
+
+	public TileData(Tile tile, Player player, int tileID, string name, string desc, int q, int r)
 		: base(tile)
 	{
 		this.player = player;
 		this.tileID = tileID;
+		this.tileName = name;
+		this.desc = desc;
 		this.q = q;
 		this.r = r;
 	}
