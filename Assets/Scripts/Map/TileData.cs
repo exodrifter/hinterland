@@ -24,11 +24,18 @@
 	}
 	private int r;
 
-	public TileData(Tile tile, Player player, int tileID, int q, int r)
+	public TileLocalization Localization
+	{
+		get { return localization; }
+	}
+	private TileLocalization localization;
+
+	public TileData(Tile tile, Player player, int tileID, TileLocalization localization, int q, int r)
 		: base(tile)
 	{
 		this.player = player;
 		this.tileID = tileID;
+		this.localization = localization;
 		this.q = q;
 		this.r = r;
 	}

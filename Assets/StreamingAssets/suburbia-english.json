@@ -2,16 +2,19 @@
 	{
 		"$type": "TileLocalization, Assembly-CSharp",
 		"name": "Suburbs",
-		"file": "suburbia/suburbs.png"
+		"file": "suburbia/suburbs.png",
+		"desc": "Suburbs - Houses:\n+2 population"
 	},
 	{
 		"$type": "TileLocalization, Assembly-CSharp",
 		"name": "Community Park",
-		"file": "suburbia/community-park.png"
+		"file": "suburbia/community-park.png",
+		"desc": "Community Park - Government\n-1 income\n+1 reputation for each adjacent Industry/Houses/Business"
 	},
 	{
 		"$type": "TileLocalization, Assembly-CSharp",
 		"name": "Heavy Factory",
-		"file": "suburbia/heavy-factory.png"
+		"file": "suburbia/heavy-factory.png",
+		"desc": "Heavy Factory - Industry:\n+1 income\n-1 reputation for each adjacent Government/Houses"
 	}
 ]

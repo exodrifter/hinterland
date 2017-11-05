@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 	{
 		game = new Game();
 		game.metadata = LoadMetadata();
+		game.localization = LoadLocalization();
 		game.marketStacks = LoadMarketStacks();
 
 		var player = new Player();
@@ -35,6 +36,16 @@ public class GameManager : MonoBehaviour
 		var metadataJson = File.ReadAllText(
 				Path.Combine(Application.streamingAssetsPath, "metadata.json"));
 		return JsonConvert.DeserializeObject<Tile[]>(metadataJson, settings);
+	}
+
+	private TileLocalization[] LoadLocalization()
+	{
+		var settings = new JsonSerializerSettings();
+		settings.TypeNameHandling = TypeNameHandling.All;
+
+		var metadataJson = File.ReadAllText(
+			Path.Combine(Application.streamingAssetsPath, "suburbia-english.json"));
+		return JsonConvert.DeserializeObject<TileLocalization[]>(metadataJson, settings);
 	}
 
 	private MarketStack[] LoadMarketStacks()

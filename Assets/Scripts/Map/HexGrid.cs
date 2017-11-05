@@ -92,7 +92,7 @@ public class HexGrid
 			var r = hash.r;
 			var id = kvp.Value;
 
-			list.Add(new TileData(game.metadata[id], player, id, q, r));
+			list.Add(new TileData(game.metadata[id], player, id, game.localization[id], q, r));
 		}
 
 		return list.ToArray();
