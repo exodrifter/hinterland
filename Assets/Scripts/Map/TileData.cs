@@ -24,25 +24,18 @@
 	}
 	private int r;
 
-	public string TileName
+	public TileLocalization Localization
 	{
-		get { return tileName; }
+		get { return localization; }
 	}
-	private string tileName;
+	private TileLocalization localization;
 
-	public string Description
-	{
-		get { return desc; }
-	}
-	private string desc;
-
-	public TileData(Tile tile, Player player, int tileID, string name, string desc, int q, int r)
+	public TileData(Tile tile, Player player, int tileID, TileLocalization localization, int q, int r)
 		: base(tile)
 	{
 		this.player = player;
 		this.tileID = tileID;
-		this.tileName = name;
-		this.desc = desc;
+		this.localization = localization;
 		this.q = q;
 		this.r = r;
 	}

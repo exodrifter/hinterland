@@ -38,6 +38,9 @@ public class PlayerMat : MonoBehaviour
 
 			// Set Material/Texture
 			go.GetComponent<HexRenderer>().SetTileID(tile.TileID);
+
+			// Set tooltip
+			go.GetComponent<TooltipInfo>().text = manager.Game.localization [tile.TileID].desc;
 		}
 		pool.UpdateActiveState();
 
