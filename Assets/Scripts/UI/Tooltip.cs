@@ -5,6 +5,9 @@ public class Tooltip : MonoBehaviour
 {
 	public static Tooltip Instance { get; private set; }
 
+	public RectTransform panel;
+	public Text tooltip;
+
 	public void Awake()
 	{
 		if (Util.IsNull (Instance))
@@ -26,8 +29,34 @@ public class Tooltip : MonoBehaviour
 		else
 		{
 			Instance.gameObject.SetActive(true);
-			Instance.transform.GetChild(0).transform.position = screenPos;
-			Instance.GetComponentInChildren<Text>().text = tooltip;
+			Instance.tooltip.text = tooltip;
+
+			SetPosition(screenPos);
+		}
+	}
+
+	private static void SetPosition(Vector2 screenPos)
+	{
+		var rightOffset = new Vector2(10, 0);
+		var flip = true;
+
+		var size = Instance.panel.sizeDelta;
+		if (screenPos.x + size.x + rightOffset.x > Screen.width)
+		{
+			flip = false;
+		}
+
+		// Tooltip on the right
+		if (flip)
+		{
+			Instance.panel.pivot = new Vector2(0, 1);
+			Instance.panel.position = screenPos + rightOffset;
+		}
+		// Tooltip on the left
+		else
+		{
+			Instance.panel.pivot = new Vector2(1, 1);
+			Instance.panel.position = screenPos;
 		}
 	}
 }
