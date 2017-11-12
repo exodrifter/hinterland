@@ -26,11 +26,16 @@ public class PurchaseState : State
 				if (!Util.IsNull (hex))
 				{
 					// Place it
-					inter.gm.Game.PlaceTile (marketHex.tileID, hex.Q, hex.R);
-					marketHex.RemoveFromMarket();
-
+					try
+					{
+						inter.gm.Game.PlaceTile(marketHex.tileID, hex.Q, hex.R);
+						marketHex.RemoveFromMarket();
+					}
 					// Go back to the previous state
-					inter.PopState();
+					finally
+					{
+						inter.PopState();
+					}
 				}
 			}
 		}
