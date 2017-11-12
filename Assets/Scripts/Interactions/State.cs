@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public abstract class State
 {	
@@ -15,18 +14,16 @@ public abstract class State
 			TooltipInfo desc = hit.collider.gameObject.GetComponent<TooltipInfo> ();
 			if (!Util.IsNull (desc))
 			{
-				tooltip.gameObject.SetActive (true);
-				tooltip.transform.GetChild(0).transform.position = Input.mousePosition;
-				tooltip.GetComponentInChildren<Text> ().text = desc.text;
+				Tooltip.SetTooltip(Input.mousePosition, desc.text);
 			}
 			else
 			{
-				tooltip.gameObject.SetActive (false);
+				Tooltip.SetTooltip(Vector2.zero, null);
 			}
 		}
 		else
 		{
-			tooltip.gameObject.SetActive (false);
+			Tooltip.SetTooltip(Vector2.zero, null);
 		}
 	}
 }
