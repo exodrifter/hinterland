@@ -23,7 +23,7 @@ public class PurchaseState : State
 				// Place it
 				try
 				{
-					inter.gm.Game.PlaceTile(marketHex.tileID, hex.Q, hex.R);
+					inter.gm.Game.PlaceTile(marketHex.tileID, hex.Q, hex.R, marketHex.marketIndex);
 					marketHex.RemoveFromMarket();
 				}
 				// Go back to the previous state
