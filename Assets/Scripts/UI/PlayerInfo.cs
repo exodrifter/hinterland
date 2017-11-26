@@ -16,12 +16,13 @@ public class PlayerInfo : MonoBehaviour
 	{
 		var player = manager.Game.players[playerIndex];
 
+		// TODO: Localization
 		var incomeSign = player.income < 0 ? "-" : "+";
 		var reputationSign = player.reputation < 0 ? "-" : "+";
-		moneyText.text = string.Format("${0} ({1}{2})",
+		moneyText.text = string.Format("Money: ${0}, Income: ({1}{2})",
 			player.money, incomeSign, Mathf.Abs(player.income)
 		);
-		populationText.text = string.Format("{0} ({1}{2})",
+		populationText.text = string.Format("Population: {0}, Reputation: ({1}{2})",
 			player.population, reputationSign, Mathf.Abs(player.reputation)
 		);
 	}
