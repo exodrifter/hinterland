@@ -17,25 +17,19 @@ public class PurchaseState : State
 		base.Update (inter);
 		if (Input.GetMouseButtonDown(0))
 		{
-			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-			RaycastHit hit;
-
-			if (Physics.Raycast (ray, out hit, 100))
+			InvisibleHex hex = Util.Raycast<InvisibleHex> ();
+			if (!Util.IsNull (hex))
 			{
-				InvisibleHex hex = hit.collider.gameObject.GetComponent<InvisibleHex> ();
-				if (!Util.IsNull (hex))
+				// Place it
+				try
 				{
-					// Place it
-					try
-					{
-						inter.gm.Game.PlaceTile(marketHex.tileID, hex.Q, hex.R);
-						marketHex.RemoveFromMarket();
-					}
-					// Go back to the previous state
-					finally
-					{
-						inter.PopState();
-					}
+					inter.gm.Game.PlaceTile(marketHex.tileID, hex.Q, hex.R);
+					marketHex.RemoveFromMarket();
+				}
+				// Go back to the previous state
+				finally
+				{
+					inter.PopState();
 				}
 			}
 		}

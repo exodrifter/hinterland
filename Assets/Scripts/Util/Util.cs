@@ -1,4 +1,9 @@
-﻿public static partial class Util
+﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using System.Collections.Generic;
+
+public static partial class Util
 {
 	/// <summary>
 	/// Returns true if the object is null or destroyed.
@@ -32,5 +37,41 @@
 			}
 			return hash;
 		}
+	}
+
+	public static T Raycast<T>() where T : Component
+	{
+		// Do a graphics ray cast and physics raycast
+		// because the UI System doesn't work with colliders
+		var canvas = GameObject.FindObjectOfType<Canvas> ();
+		GraphicRaycaster gr = canvas.GetComponent<GraphicRaycaster>();
+		PointerEventData ped = new PointerEventData(null);
+		ped.position = Input.mousePosition;
+		List<RaycastResult> results = new List<RaycastResult>();
+
+		gr.Raycast (ped, results);
+
+		if (results.Count != 0)
+		{
+			for (int i = 0; i < results.Count; i++)
+			{				
+				T comp = results [i].gameObject.GetComponent<T> ();
+
+				if (!IsNull (comp))
+				{
+					return comp;
+				}
+			}
+		}
+
+		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		RaycastHit hit;
+
+		if (Physics.Raycast (ray, out hit, 100))
+		{
+			return hit.collider.gameObject.GetComponent<T> ();
+		}
+
+		return null;
 	}
 }

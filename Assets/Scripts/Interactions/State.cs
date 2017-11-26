@@ -6,20 +6,10 @@ public abstract class State
 	{
 		var tooltip = Tooltip.Instance;
 
-		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-		RaycastHit hit;
-
-		if (Physics.Raycast (ray, out hit, 100))
+		TooltipInfo desc = Util.Raycast<TooltipInfo> ();
+		if (!Util.IsNull (desc))
 		{
-			TooltipInfo desc = hit.collider.gameObject.GetComponent<TooltipInfo> ();
-			if (!Util.IsNull (desc))
-			{
-				Tooltip.SetTooltip(Input.mousePosition, desc.text);
-			}
-			else
-			{
-				Tooltip.SetTooltip(Vector2.zero, null);
-			}
+			Tooltip.SetTooltip(Input.mousePosition, desc.text);
 		}
 		else
 		{

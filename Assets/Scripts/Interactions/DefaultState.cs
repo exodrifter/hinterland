@@ -7,19 +7,13 @@ public class DefaultState : State
 		base.Update (inter);
 		if (Input.GetMouseButtonDown(0))
 		{
-			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-			RaycastHit hit;
-
-			if (Physics.Raycast (ray, out hit, 100))
+			MarketHex hex = Util.Raycast<MarketHex> ();
+			if (!Util.IsNull (hex))
 			{
-				MarketHex hex = hit.collider.gameObject.GetComponent<MarketHex> ();
-				if (!Util.IsNull (hex))
-				{
-					inter.PushState (new PurchaseState(hex));
-				}
-
-				// add double
+				inter.PushState (new PurchaseState(hex));
 			}
+
+			// add double
 		}
 	}
 }
