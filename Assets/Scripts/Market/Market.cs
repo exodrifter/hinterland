@@ -32,14 +32,13 @@ public class Market : MonoBehaviour
 			var tileID = onSale[i];
 
 			var go = pool.Spawn();
-			go.GetComponent<Anchor>().offset = new Vector3(.6f, -0.5f - i, 0.5f);
-			go.GetComponent<HexRenderer>().SetTileID(tileID);
+			go.GetComponentInChildren<HexMaskRenderer>().SetTileID(tileID);
 
-			var marketHex = go.GetComponent<MarketHex>();
+			var marketHex = go.GetComponentInChildren<MarketHex>();
 			marketHex.tileID = tileID;
 			marketHex.marketIndex = i;
 			marketHex.market = this;
-			go.GetComponent<TooltipInfo>().text = manager.Game.localization [tileID].desc;
+			go.GetComponentInChildren<TooltipInfo>().text = manager.Game.localization [tileID].desc;
 		}
 
 		pool.UpdateActiveState();
