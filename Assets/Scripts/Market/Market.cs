@@ -27,7 +27,7 @@ public class Market : MonoBehaviour
 
 		pool.DespawnAll();
 
-		for (int i = 0; i < onSale.Count; ++i)
+		for (int i = onSale.Count - 1; i >= 0; i--)
 		{
 			var tileID = onSale[i];
 
