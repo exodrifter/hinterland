@@ -12,6 +12,14 @@ public class Pool
 	private List<GameObject> pooled = new List<GameObject>();
 	private List<GameObject> spawned = new List<GameObject>();
 
+	public void Despawn(GameObject go)
+	{
+		if (spawned.Remove (go))
+		{
+			pooled.Add (go);
+		}
+	}
+
 	public void DespawnAll()
 	{
 		for (int i = spawned.Count - 1; i >= 0; --i)

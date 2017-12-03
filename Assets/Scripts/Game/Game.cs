@@ -35,6 +35,7 @@ public class Game
 		int marketAdjustment = marketIndex > 1 ? (marketIndex - 1) * 2 : 0;
 		if (activePlayer.money < tile.price + marketAdjustment)
 		{
+			PopupManager.Show ("Not enough money.");
 			throw new InvalidOperationException();
 		}
 
