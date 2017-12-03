@@ -1,38 +1,58 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-	public float keySpeed;
-	public float dragSpeed = 2;
-	private Vector3 dragOrigin;
+	public float keySpeed = 10;
+	private Vector3? dragOrigin;
 
-	// Update is called once per frame
-	void Update ()
+	void Update()
 	{
-		// WASD movement
+		HandleMouse();
+		HandleKeyboard();
+	}
+
+	private void HandleKeyboard()
+	{
 		var x = Input.GetAxis("Horizontal") * Time.deltaTime * keySpeed;
 		var y = Input.GetAxis("Vertical") * Time.deltaTime * keySpeed;
-
 		transform.Translate(x, y, 0);
-	
-		// Mouse movement
+	}
+
+	private bool HandleMouse()
+	{
+		// Start dragging
 		if (Input.GetMouseButtonDown(0))
 		{
 			dragOrigin = Input.mousePosition;
-			return;
+			return true;
 		}
-
+		// Stop dragging
 		if (!Input.GetMouseButton(0))
 		{
-			return;
+			dragOrigin = null;
+			return false;
 		}
 
-		Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
-		Vector3 move = new Vector3(-pos.x * dragSpeed, -pos.y * dragSpeed, 0);
+		// Calculate drag
+		if (dragOrigin.HasValue)
+		{
+			var oldPos = ScreenToWorldPoint(dragOrigin.Value);
+			var newPos = ScreenToWorldPoint(Input.mousePosition);
+			transform.Translate(oldPos - newPos);
 
-		transform.Translate(move, Space.World);
+			dragOrigin = Input.mousePosition;
+			return true;
+		}
 
+		return false;
 	}
+
+	#region Util
+
+	private Vector3 ScreenToWorldPoint(Vector3 pos)
+	{
+		return Camera.main.ScreenPointToRay(pos).GetPoint(10);
+	}
+
+	#endregion
 }
