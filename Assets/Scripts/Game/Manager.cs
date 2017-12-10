@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -14,9 +13,8 @@ public class Manager : MonoBehaviour
 	public void Awake()
 	{
 		game = new Game();
-		game.metadata = LoadMetadata();
-		game.localization = LoadLocalization();
-		game.marketStacks = LoadMarketStacks();
+		game.pack = GamePack.LoadPack(Path.Combine(Application.streamingAssetsPath, "suburbia"));
+		game.pack.SetLanguage("spa");
 
 		var player = new Player();
 		player.money = 20;
@@ -26,35 +24,5 @@ public class Manager : MonoBehaviour
 		game.PlaceTile(0, 0, 0);
 		game.PlaceTile(1, 0, 1);
 		game.PlaceTile(2, 0, 2);
-	}
-
-	private Tile[] LoadMetadata()
-	{
-		var settings = new JsonSerializerSettings();
-		settings.TypeNameHandling = TypeNameHandling.All;
-
-		var metadataJson = File.ReadAllText(
-				Path.Combine(Application.streamingAssetsPath, "metadata.json"));
-		return JsonConvert.DeserializeObject<Tile[]>(metadataJson, settings);
-	}
-
-	private TileLocalization[] LoadLocalization()
-	{
-		var settings = new JsonSerializerSettings();
-		settings.TypeNameHandling = TypeNameHandling.All;
-
-		var metadataJson = File.ReadAllText(
-			Path.Combine(Application.streamingAssetsPath, "suburbia-english.json"));
-		return JsonConvert.DeserializeObject<TileLocalization[]>(metadataJson, settings);
-	}
-
-	private MarketStack[] LoadMarketStacks()
-	{
-		var settings = new JsonSerializerSettings();
-		settings.TypeNameHandling = TypeNameHandling.All;
-
-		var metadataJson = File.ReadAllText(
-				Path.Combine(Application.streamingAssetsPath, "suburbia-market.json"));
-		return JsonConvert.DeserializeObject<MarketStack[]>(metadataJson, settings);
 	}
 }

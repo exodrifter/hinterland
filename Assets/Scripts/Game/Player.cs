@@ -18,12 +18,12 @@ public class Player
 
 	public Tile Get(Game game, int q, int r)
 	{
-		return game.metadata[map.Get(q, r)];
+		return game.pack.GetMetadata()[map.Get(q, r)];
 	}
 
 	public Tile GetNeighbor(Game game, int q, int r, HexDirection direction)
 	{
-		return game.metadata[map.GetNeighbor(q, r, direction)];
+		return game.pack.GetMetadata()[map.GetNeighbor(q, r, direction)];
 	}
 
 	public Tile[] GetNeighbors(Game game, int q, int r)
@@ -38,23 +38,17 @@ public class Player
 				continue;
 			}
 
-			var tile = game.metadata[id];
+			var tile = game.pack.GetMetadata()[id];
 			ret.Add(tile);
 		}
 
 		return ret.ToArray();
 	}
 
-	public void Set(Game game, int q, int r, Tile tile)
+	public void Set(Game game, int q, int r, int tileID)
 	{
-		for (int i = 0; i < game.metadata.Length; i++)
-		{
-			if (game.metadata[i].Equals(tile))
-			{
-				map.Set(q, r, i);
-				return;
-			}
-		}
+		map.Set(q, r, tileID);
+		return;
 	}
 
 	public Tile[] GetTiles(Game game)
@@ -64,7 +58,7 @@ public class Player
 
 		for (int i = 0; i < ids.Length; i++)
 		{
-			tiles[i] = game.metadata[ids[i]];
+			tiles[i] = game.pack.GetMetadata()[ids[i]];
 		}
 
 		return tiles;

@@ -38,7 +38,7 @@ public class Market : MonoBehaviour
 			marketHex.tileID = tileID;
 			marketHex.marketIndex = i;
 			marketHex.market = this;
-			go.GetComponentInChildren<TooltipInfo>().text = manager.Game.localization [tileID].desc;
+			go.GetComponentInChildren<TooltipInfo>().text = manager.Game.pack.GetLocalization()[tileID].desc;
 		}
 
 		pool.UpdateActiveState();
@@ -84,7 +84,7 @@ public class Market : MonoBehaviour
 	private MarketStack GetNextStack()
 	{
 		// Remove all keys from market stacks with negative or zero counts
-		foreach (var i in manager.Game.marketStacks)
+		foreach (var i in manager.Game.pack.GetMarketStacks())
 		{
 			foreach (var key in i.counts.Keys)
 			{
@@ -96,7 +96,7 @@ public class Market : MonoBehaviour
 		}
 
 		// Get the first stack with a non-zero amount of tiles
-		var stacks = manager.Game.marketStacks;
+		var stacks = manager.Game.pack.GetMarketStacks();
 		for (int i = 0; i < stacks.Length; ++i)
 		{
 			var stack = stacks[i];

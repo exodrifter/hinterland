@@ -4,28 +4,21 @@ using System.Collections.Generic;
 public class Game
 {
 	public List<Player> players = new List<Player>();
-	public Tile[] metadata = new Tile[0];
-	public TileLocalization[] localization = new TileLocalization[0];
-
-	public MarketStack[] marketStacks = new MarketStack[0];
+	public GamePack pack;
 
 	/// <summary>
 	/// Whose turn is it?
 	/// </summary>
 	public Player activePlayer;
 
-	public void PlaceTile(int tileID, int q, int r, int marketIndex = 0)
-	{
-		Tile tile = metadata [tileID];
-		PlaceTile (tile, q, r, marketIndex);
-	}
-
 	/// <summary>
 	/// Steps the game forward one turn
 	/// </summary>
 	/// <param name="tile">The tile that was played.</param>
-	public void PlaceTile(Tile tile, int q, int r, int marketIndex = 0)
+	public void PlaceTile(int tileID, int q, int r, int marketIndex = 0)
 	{
+		Tile tile = pack.GetMetadata()[tileID];
+
 		// Check if the space is empty
 		if (activePlayer.HasAt(q, r))
 		{
@@ -45,15 +38,14 @@ public class Game
 		activePlayer.reputation += tile.reputationBonus;
 
 		// Resolve tile rules
-		var tileID = Array.IndexOf(metadata, tile);
-		var tiledata = new TileData(tile, activePlayer, tileID, localization[tileID], q, r);
+		var tiledata = new TileData(tile, activePlayer, tileID, pack.GetLocalization()[tileID], q, r);
 		foreach (var rule in tile.rules)
 		{
 			rule.RunNow(this, activePlayer, tiledata);
 		}
 
 		// Place the tile
-		activePlayer.Set(this, q, r, tile);
+		activePlayer.Set(this, q, r, tileID);
 
 		// Resolve other tile rules
 		foreach (var player in players)
@@ -85,8 +77,8 @@ public class Game
 		activePlayer.doubleCounters--;
 
 		// Double rule effect
-		var tileID = Array.IndexOf(metadata, tile);
-		var tiledata = new TileData(tile, activePlayer, tileID, localization[tileID], q, r);
+		var tileID = Array.IndexOf(pack.GetMetadata(), tile);
+		var tiledata = new TileData(tile, activePlayer, tileID, pack.GetLocalization()[tileID], q, r);
 		foreach (var rule in tile.rules)
 		{
 			rule.RunNow(this, activePlayer, tiledata);

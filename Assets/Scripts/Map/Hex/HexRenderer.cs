@@ -7,7 +7,7 @@ public class HexRenderer : MonoBehaviour
 
 	public void SetTileID(int tileID)
 	{
-		var file = manager.Game.localization[tileID].file;
+		var file = manager.Game.pack.GetTilePath(tileID);
 		var renderer = GetComponent<MeshRenderer>();
 		ImageHelper.LoadImage (file, (tex) => {renderer.material.SetTexture("_MainTex", tex);});
 	}

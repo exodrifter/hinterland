@@ -1,0 +1,20 @@
+[
+	{
+		"$type": "TileLocalization, Assembly-CSharp",
+		"name": "Vecindario",
+		"file": "suburbs.png",
+		"desc": "Vecindario - Casas:\n+2 población"
+	},
+	{
+		"$type": "TileLocalization, Assembly-CSharp",
+		"name": "Parque Comunitario",
+		"file": "community-park.png",
+		"desc": "Parque Comunitario - Gobierno\n-1 ingresos\n+1 reputación por cada adyacente Industrial/Casas/Negocio ficha"
+	},
+	{
+		"$type": "TileLocalization, Assembly-CSharp",
+		"name": "Fábrica Industrial",
+		"file": "heavy-factory.png",
+		"desc": "Fábrica Industrial - Industria:\n+1 ingresos\n-1 reputación por cada adyacente Gobierno/Casas ficha"
+	}
+]
