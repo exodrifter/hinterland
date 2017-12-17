@@ -1,5 +1,8 @@
 ﻿using System;
 
+/// <summary>
+/// Represents the JSON data of a tile.
+/// </summary>
 [Serializable]
 public class Tile
 {
@@ -38,19 +41,16 @@ public class Tile
 	/// </summary>
 	public Rule[] rules;
 
-	public Tile()
-	{
-
-	}
+	public Tile() { rules = new Rule[0]; }
 
 	public Tile(Tile tile)
 	{
-		this.price = tile.price;
-		this.populationBonus = tile.populationBonus;
-		this.reputationBonus = tile.reputationBonus;
-		this.incomeBonus = tile.incomeBonus;
-		this.typeIcon = tile.typeIcon;
-		this.specialtyIcon = tile.specialtyIcon;
+		price = tile.price;
+		populationBonus = tile.populationBonus;
+		reputationBonus = tile.reputationBonus;
+		incomeBonus = tile.incomeBonus;
+		typeIcon = tile.typeIcon;
+		specialtyIcon = tile.specialtyIcon;
 
 		rules = new Rule[tile.rules.Length];
 		for (int i = 0; i < tile.rules.Length; i++)
