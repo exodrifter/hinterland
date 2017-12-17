@@ -14,6 +14,11 @@ public class GamePack
 	/// </summary>
 	private string lang = "eng";
 
+	private Tile[] cachedMetadata = null;
+	private MarketStack[] cachedMarketStacks = null;
+	private string cachedLanguageString = null;
+	private TileLocalization[] cachedLocalization = null;
+
 	/// <summary>
 	/// References a game pack on disk.
 	/// </summary>
@@ -38,11 +43,16 @@ public class GamePack
 	/// <returns>The tile metadata.</returns>
 	public Tile[] GetMetadata()
 	{
-		var settings = new JsonSerializerSettings();
-		settings.TypeNameHandling = TypeNameHandling.All;
+		if (cachedMetadata == null)
+		{
+			var settings = new JsonSerializerSettings();
+			settings.TypeNameHandling = TypeNameHandling.All;
 
-		var metadataJson = File.ReadAllText(Path.Combine(root, "metadata.json"));
-		return JsonConvert.DeserializeObject<Tile[]>(metadataJson, settings);
+			var json = File.ReadAllText(Path.Combine(root, "metadata.json"));
+			cachedMetadata = JsonConvert.DeserializeObject<Tile[]>(json, settings);
+		}
+
+		return cachedMetadata;
 	}
 
 	/// <summary>
@@ -51,11 +61,16 @@ public class GamePack
 	/// <returns>The default market stacks.</returns>
 	public MarketStack[] GetMarketStacks()
 	{
-		var settings = new JsonSerializerSettings();
-		settings.TypeNameHandling = TypeNameHandling.All;
+		if (cachedMarketStacks == null)
+		{
+			var settings = new JsonSerializerSettings();
+			settings.TypeNameHandling = TypeNameHandling.All;
 
-		var metadataJson = File.ReadAllText(Path.Combine(root, "market.json"));
-		return JsonConvert.DeserializeObject<MarketStack[]>(metadataJson, settings);
+			var metadataJson = File.ReadAllText(Path.Combine(root, "market.json"));
+			cachedMarketStacks = JsonConvert.DeserializeObject<MarketStack[]>(metadataJson, settings);
+		}
+
+		return cachedMarketStacks;
 	}
 
 	/// <summary>
@@ -80,11 +95,18 @@ public class GamePack
 	/// <returns>The localization for this pack.</returns>
 	public TileLocalization[] GetLocalization()
 	{
-		var settings = new JsonSerializerSettings();
-		settings.TypeNameHandling = TypeNameHandling.All;
+		if (cachedLanguageString != lang)
+		{
+			cachedLanguageString = lang;
 
-		var metadataJson = File.ReadAllText(Path.Combine(root, "language/" + lang + ".json"));
-		return JsonConvert.DeserializeObject<TileLocalization[]>(metadataJson, settings);
+			var settings = new JsonSerializerSettings();
+			settings.TypeNameHandling = TypeNameHandling.All;
+
+			var metadataJson = File.ReadAllText(Path.Combine(root, "language/" + lang + ".json"));
+			cachedLocalization = JsonConvert.DeserializeObject<TileLocalization[]>(metadataJson, settings);
+		}
+
+		return cachedLocalization;
 	}
 
 	public string GetTilePath(int tileID)
