@@ -3,32 +3,41 @@ using System.Collections.Generic;
 
 [Serializable]
 public class HexGrid
-{
-	private Dictionary<HexPosition, int> tiles = new Dictionary<HexPosition, int>();
+{	
+	public Dictionary<HexPosition, HexGridTile> Tiles
+	{
+		get { return tiles; }
+	}
+	private Dictionary<HexPosition, HexGridTile> tiles = new Dictionary<HexPosition, HexGridTile>();
 
 	public bool HasAt(int q, int r)
 	{
 		return tiles.ContainsKey(new HexPosition(q, r));
 	}
 
-	public int Get(int q, int r)
+	public HexGridTile Get(int q, int r)
 	{
 		if (HasAt(q, r))
 		{
 			return tiles[new HexPosition(q, r)];
 		}
 
-		return -1;
+		return null;
 	}
 
-	public int GetNeighbor(int q, int r, HexDirection direction)
+	public HexGridTile GetNeighbor(int q, int r, HexDirection direction)
 	{
-		return Get(q + direction.GetDQ(), r + direction.GetDR());
+		HexGridTile hexGridTile = Get (q + direction.GetDQ (), r + direction.GetDR ());
+		if (hexGridTile != null)
+		{
+			return hexGridTile;
+		}
+		return hexGridTile;
 	}
 
-	public List<int> GetNeighbors(int q, int r)
+	public List<HexGridTile> GetNeighbors(int q, int r)
 	{
-		var ret = new List<int>()
+		var ret = new List<HexGridTile>()
 		{
 			GetNeighbor(q, r, HexDirection.North),
 			GetNeighbor(q, r, HexDirection.South),
@@ -40,7 +49,7 @@ public class HexGrid
 
 		for (int i = ret.Count - 1; i >= 0; --i)
 		{
-			if (ret[i] < 0)
+			if (Util.IsNull(ret[i]))
 			{
 				ret.RemoveAt(i);
 			}
@@ -49,9 +58,9 @@ public class HexGrid
 		return ret;
 	}
 
-	internal void Set(int q, int r, int tileID)
+	internal void Set(int q, int r, int tileID, bool isDoubled)
 	{
-		tiles[new HexPosition(q, r)] = tileID;
+		tiles[new HexPosition(q, r)] = new HexGridTile(tileID, isDoubled);
 	}
 
 	public static bool IsAdjacent(int q, int r, int q2, int r2)
@@ -69,32 +78,5 @@ public class HexGrid
 	{
 		return q + direction.GetDQ() == q2
 			&& r + direction.GetDR() == r2;
-	}
-
-	public int[] GetTiles()
-	{
-		var list = new List<int>();
-		foreach (var value in tiles.Values)
-		{
-			list.Add(value);
-		}
-		return list.ToArray();
-	}
-
-	public TileData[] GetTileData(Game game, Player player)
-	{
-		var list = new List<TileData>();
-
-		foreach (var kvp in tiles)
-		{
-			var hash = kvp.Key;
-			var q = hash.q;
-			var r = hash.r;
-			var id = kvp.Value;
-
-			list.Add(new TileData(game.pack.GetMetadata()[id], player, id, game.pack.GetLocalization()[id], q, r));
-		}
-
-		return list.ToArray();
 	}
 }

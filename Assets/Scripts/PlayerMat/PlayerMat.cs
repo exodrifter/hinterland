@@ -41,6 +41,13 @@ public class PlayerMat : MonoBehaviour
 
 			// Set tooltip
 			go.GetComponent<TooltipInfo>().text = manager.Game.pack.GetLocalization()[tile.TileID].desc;
+
+			// Set Clickable Hex Post
+			var click = go.GetComponent<ClickableHex>();
+			click.TileID = tile.TileID;
+			click.Q = tile.Q;
+			click.R = tile.R;
+			click.Visible = true;
 		}
 		pool.UpdateActiveState();
 
@@ -76,9 +83,11 @@ public class PlayerMat : MonoBehaviour
 				var go = invisible.Spawn();
 				go.transform.position = Hex.GetPosition(nq, nr);
 
-				var inv = go.GetComponent<InvisibleHex>();
-				inv.Q = nq;
-				inv.R = nr;
+				var click = go.GetComponent<ClickableHex>();
+				click.TileID = -1;
+				click.Q = nq;
+				click.R = nr;
+				click.Visible = false;
 			}
 		}
 

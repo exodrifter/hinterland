@@ -38,14 +38,14 @@ public class Game
 		activePlayer.reputation += tile.reputationBonus;
 
 		// Resolve tile rules
-		var tiledata = new TileData(tile, activePlayer, tileID, pack.GetLocalization()[tileID], q, r);
+		var tiledata = new TileData(tile, activePlayer, tileID, pack.GetLocalization()[tileID], q, r, false);
 		foreach (var rule in tile.rules)
 		{
 			rule.RunNow(this, activePlayer, tiledata);
 		}
 
 		// Place the tile
-		activePlayer.Set(this, q, r, tileID);
+		activePlayer.Set(this, q, r, tileID, tiledata.IsDoubled);
 
 		// Resolve other tile rules
 		foreach (var player in players)
@@ -60,28 +60,47 @@ public class Game
 		}
 	}
 
-	public void DoubleTile(Tile tile, int q, int r)
+	public void DoubleTile(int q, int r)
 	{
+		TileData tile = activePlayer.Get (this, q, r);
+
 		// Check if the player has enough money
 		if (activePlayer.money < tile.price)
 		{
+			PopupManager.Show ("Not enough money.");
 			throw new InvalidOperationException();
 		}
 		// Check if there are enough double counters
 		if (activePlayer.doubleCounters <= 0)
 		{
+			PopupManager.Show ("Out of doubling counters.");
+			throw new InvalidOperationException();
+		}
+
+		var tiledata = activePlayer.Get (this, q, r);
+
+		// Check if the tile has already been doubled
+		if (tiledata.IsDoubled)
+		{
+			PopupManager.Show ("Chosen tile has already been doubled.");
 			throw new InvalidOperationException();
 		}
 
 		activePlayer.money -= tile.price;
+		activePlayer.income += tile.incomeBonus;
+		activePlayer.population += tile.populationBonus;
+		activePlayer.reputation += tile.reputationBonus;
+
 		activePlayer.doubleCounters--;
 
 		// Double rule effect
-		var tileID = Array.IndexOf(pack.GetMetadata(), tile);
-		var tiledata = new TileData(tile, activePlayer, tileID, pack.GetLocalization()[tileID], q, r);
 		foreach (var rule in tile.rules)
 		{
 			rule.RunNow(this, activePlayer, tiledata);
 		}
+
+		// Set the tile as doubled in the HexGrid
+		tiledata.IsDoubled = true;
+		activePlayer.Set(this, q, r, tiledata.TileID, tiledata.IsDoubled);
 	}
 }

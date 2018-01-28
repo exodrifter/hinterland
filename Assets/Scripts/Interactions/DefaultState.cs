@@ -11,9 +11,15 @@ public class DefaultState : State
 			if (!Util.IsNull (hex))
 			{
 				inter.PushState (new PurchaseState(hex));
+				return;
 			}
 
-			// add double
+			DoubleHex doubling = Util.Raycast<DoubleHex>();
+			if (!Util.IsNull(doubling))
+			{
+				inter.PushState(new DoublingState());
+				return;
+			}
 		}
 	}
 }

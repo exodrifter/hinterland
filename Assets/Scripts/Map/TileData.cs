@@ -22,6 +22,15 @@ public class TileData : Tile
 	private int tileID;
 
 	/// <summary>
+	/// The localization data for this tile.
+	/// </summary>
+	public TileLocalization Localization
+	{
+		get { return localization; }
+	}
+	private TileLocalization localization;
+
+	/// <summary>
 	/// The Q position of this tile in the hex grid.
 	/// </summary>
 	public int Q
@@ -40,15 +49,17 @@ public class TileData : Tile
 	private int r;
 
 	/// <summary>
-	/// The localization data for this tile.
+	/// Gets a value indicating whether this instance is doubled.
 	/// </summary>
-	public TileLocalization Localization
+	/// <value><c>true</c> if this instance is doubled; otherwise, <c>false</c>.</value>
+	public bool IsDoubled
 	{
-		get { return localization; }
+		get { return isDoubled; }
+		set { isDoubled = value; }
 	}
-	private TileLocalization localization;
+	private bool isDoubled;
 
-	public TileData(Tile tile, Player player, int tileID, TileLocalization localization, int q, int r)
+	public TileData(Tile tile, Player player, int tileID, TileLocalization localization, int q, int r, bool isDoubled)
 		: base(tile)
 	{
 		this.player = player;
@@ -56,5 +67,6 @@ public class TileData : Tile
 		this.localization = localization;
 		this.q = q;
 		this.r = r;
+		this.isDoubled = isDoubled;
 	}
 }

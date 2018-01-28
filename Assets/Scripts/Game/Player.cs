@@ -16,49 +16,57 @@ public class Player
 		return map.HasAt(q, r);
 	}
 
-	public Tile Get(Game game, int q, int r)
+	public TileData Get(Game game, int q, int r)
 	{
-		return game.pack.GetMetadata()[map.Get(q, r)];
+		HexGridTile hexGridTile = map.Get(q, r);
+		var tiledata = new TileData (game.pack.GetMetadata () [hexGridTile.tileID], this,
+			hexGridTile.tileID, game.pack.GetLocalization () [hexGridTile.tileID], q, r, hexGridTile.isDoubled);
+		return tiledata;
 	}
 
 	public Tile GetNeighbor(Game game, int q, int r, HexDirection direction)
 	{
-		return game.pack.GetMetadata()[map.GetNeighbor(q, r, direction)];
+		return game.pack.GetMetadata()[map.GetNeighbor(q, r, direction).tileID];
 	}
 
 	public Tile[] GetNeighbors(Game game, int q, int r)
 	{
-		List<int> ids = map.GetNeighbors(q, r);
+		List<HexGridTile> tiles = map.GetNeighbors(q, r);
 
 		var ret = new List<Tile>();
-		foreach (int id in ids)
+		foreach (HexGridTile hexGridTile in tiles)
 		{
-			if (id == -1)
+			if (hexGridTile.tileID == -1)
 			{
 				continue;
 			}
 
-			var tile = game.pack.GetMetadata()[id];
+			var tile = game.pack.GetMetadata()[hexGridTile.tileID];
 			ret.Add(tile);
 		}
 
 		return ret.ToArray();
 	}
 
-	public void Set(Game game, int q, int r, int tileID)
+	public void Set(Game game, int q, int r, int tileID, bool isDoubled)
 	{
-		map.Set(q, r, tileID);
+		map.Set(q, r, tileID, isDoubled);
 		return;
 	}
 
 	public Tile[] GetTiles(Game game)
 	{
-		int[] ids = map.GetTiles();
-		Tile[] tiles = new Tile[ids.Length];
-
-		for (int i = 0; i < ids.Length; i++)
+		List<HexGridTile> hexGridTiles = new List<HexGridTile>();
+		foreach (var value in map.Tiles.Values)
 		{
-			tiles[i] = game.pack.GetMetadata()[ids[i]];
+			hexGridTiles.Add(value);
+		}
+
+		Tile[] tiles = new Tile[hexGridTiles.Count];
+
+		for (int i = 0; i < hexGridTiles.Count; i++)
+		{
+			tiles[i] = game.pack.GetMetadata()[hexGridTiles[i].tileID];
 		}
 
 		return tiles;
@@ -66,6 +74,19 @@ public class Player
 
 	public TileData[] GetTileData(Game game)
 	{
-		return map.GetTileData(game, this);
+		var list = new List<TileData>();
+
+		foreach (var kvp in map.Tiles)
+		{
+			var hash = kvp.Key;
+			var q = hash.q;
+			var r = hash.r;
+			var hexGrid = kvp.Value;
+			var id = hexGrid.tileID;
+			var isDoubled = hexGrid.isDoubled;
+
+			list.Add(new TileData(game.pack.GetMetadata()[id], this, id, game.pack.GetLocalization()[id], q, r, isDoubled));
+		}
+		return list.ToArray();
 	}
 }
