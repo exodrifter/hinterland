@@ -19,5 +19,11 @@
 	},
 	{
 		"message": "Chosen tile already has a x2 counter."
+	},
+	{
+		"message": "Show"
+	},
+	{
+		"message": "Hide"
 	}
 ]

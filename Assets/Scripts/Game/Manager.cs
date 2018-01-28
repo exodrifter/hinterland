@@ -14,7 +14,7 @@ public class Manager : MonoBehaviour
 	{
 		game = new Game();
 		game.pack = GamePack.LoadPack(Path.Combine(Application.streamingAssetsPath, "suburbia"));
-		game.pack.SetLanguage("eng");
+		game.pack.SetLanguage("spa");
 
 		var player = new Player();
 		player.money = 20;

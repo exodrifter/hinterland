@@ -19,5 +19,11 @@
 	},
 	{
 		"message": "La ficha hexagonal que escogió ya tiene una x2 ficha."
+	},
+	{
+		"message": "Mostrar"
+	},
+	{
+		"message": "Esconder"
 	}
 ]
