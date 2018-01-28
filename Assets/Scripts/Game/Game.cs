@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using UnityEngine;
+
 public class Game
 {
 	public List<Player> players = new List<Player>();
@@ -28,7 +30,7 @@ public class Game
 		int marketAdjustment = marketIndex > 1 ? (marketIndex - 1) * 2 : 0;
 		if (activePlayer.money < tile.price + marketAdjustment)
 		{
-			PopupManager.Show ("Not enough money.");
+			PopupManager.Show (pack.GetMsgLocalization()[4].message);
 			throw new InvalidOperationException();
 		}
 
@@ -38,7 +40,7 @@ public class Game
 		activePlayer.reputation += tile.reputationBonus;
 
 		// Resolve tile rules
-		var tiledata = new TileData(tile, activePlayer, tileID, pack.GetLocalization()[tileID], q, r, false);
+		var tiledata = new TileData(tile, activePlayer, tileID, pack.GetTileLocalization()[tileID], q, r, false);
 		foreach (var rule in tile.rules)
 		{
 			rule.RunNow(this, activePlayer, tiledata);
@@ -67,13 +69,13 @@ public class Game
 		// Check if the player has enough money
 		if (activePlayer.money < tile.price)
 		{
-			PopupManager.Show ("Not enough money.");
+			PopupManager.Show (pack.GetMsgLocalization()[4].message);
 			throw new InvalidOperationException();
 		}
 		// Check if there are enough double counters
 		if (activePlayer.doubleCounters <= 0)
 		{
-			PopupManager.Show ("Out of doubling counters.");
+			PopupManager.Show (pack.GetMsgLocalization()[5].message);
 			throw new InvalidOperationException();
 		}
 
@@ -82,7 +84,7 @@ public class Game
 		// Check if the tile has already been doubled
 		if (tiledata.IsDoubled)
 		{
-			PopupManager.Show ("Chosen tile has already been doubled.");
+			PopupManager.Show (pack.GetMsgLocalization()[6].message);
 			throw new InvalidOperationException();
 		}
 

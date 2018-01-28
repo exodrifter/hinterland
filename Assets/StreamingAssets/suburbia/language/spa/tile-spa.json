@@ -9,12 +9,12 @@
 		"$type": "TileLocalization, Assembly-CSharp",
 		"name": "Parque Comunitario",
 		"file": "community-park.png",
-		"desc": "Parque Comunitario - Gobierno\n-1 ingresos\n+1 reputación por cada adyacente Industrial/Casas/Negocio ficha"
+		"desc": "Parque Comunitario - Gobierno\n-1 ingresos\n+1 reputación por cada adyacente Industrial/Casas/Negocio ficha hexagonal"
 	},
 	{
 		"$type": "TileLocalization, Assembly-CSharp",
 		"name": "Fábrica Industrial",
 		"file": "heavy-factory.png",
-		"desc": "Fábrica Industrial - Industria:\n+1 ingresos\n-1 reputación por cada adyacente Gobierno/Casas ficha"
+		"desc": "Fábrica Industrial - Industria:\n+1 ingresos\n-1 reputación por cada adyacente Gobierno/Casas ficha hexagonal"
 	}
 ]

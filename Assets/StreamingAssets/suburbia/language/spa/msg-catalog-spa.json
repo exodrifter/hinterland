@@ -1,0 +1,23 @@
+[
+	{
+		"message": "Dinero: ${0}"
+	},
+	{
+		"message": "Ingreso:"
+	},
+	{
+		"message": "Población:"
+	},
+	{
+		"message": "Reputación:"
+	},
+	{
+		"message": "No tiene suficiente dinero."
+	},
+	{
+		"message": "Se le acabaron las x2 fichas."
+	},
+	{
+		"message": "La ficha hexagonal que escogió ya tiene una x2 ficha."
+	}
+]

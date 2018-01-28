@@ -15,9 +15,14 @@ public class GamePack
 	private string lang = "eng";
 
 	private Tile[] cachedMetadata = null;
+
 	private MarketStack[] cachedMarketStacks = null;
-	private string cachedLanguageString = null;
-	private TileLocalization[] cachedLocalization = null;
+
+	private string cachedTileLanguageString = null;
+	private TileLocalization[] cachedTileLocalization = null;
+
+	private string cachedMsgLanguageString = null;
+	private MsgLocalization[] cachedMsgLocalization = null;
 
 	/// <summary>
 	/// References a game pack on disk.
@@ -93,25 +98,46 @@ public class GamePack
 	/// Returns the specified localization for this pack.
 	/// </summary>
 	/// <returns>The localization for this pack.</returns>
-	public TileLocalization[] GetLocalization()
+	public TileLocalization[] GetTileLocalization()
 	{
-		if (cachedLanguageString != lang)
+		if (cachedTileLanguageString != lang)
 		{
-			cachedLanguageString = lang;
+			cachedTileLanguageString = lang;
 
 			var settings = new JsonSerializerSettings();
 			settings.TypeNameHandling = TypeNameHandling.All;
 
-			var metadataJson = File.ReadAllText(Path.Combine(root, "language/" + lang + ".json"));
-			cachedLocalization = JsonConvert.DeserializeObject<TileLocalization[]>(metadataJson, settings);
+			var metadataJson = File.ReadAllText(Path.Combine(root, "language/" + lang + "/" + "tile-" + lang + ".json"));
+			cachedTileLocalization = JsonConvert.DeserializeObject<TileLocalization[]>(metadataJson, settings);
 		}
 
-		return cachedLocalization;
+		return cachedTileLocalization;
 	}
+
+	/// <summary>
+	/// Returns the specified localization for this pack.
+	/// </summary>
+	/// <returns>The localization for this pack.</returns>
+	public MsgLocalization[] GetMsgLocalization()
+	{
+		if (cachedMsgLanguageString != lang)
+		{
+			cachedMsgLanguageString = lang;
+
+			var settings = new JsonSerializerSettings();
+			settings.TypeNameHandling = TypeNameHandling.All;
+
+			var metadataJson = File.ReadAllText(Path.Combine(root, "language/" + lang + "/" + "msg-catalog-" + lang + ".json"));
+			cachedMsgLocalization = JsonConvert.DeserializeObject<MsgLocalization[]>(metadataJson, settings);
+		}
+
+		return cachedMsgLocalization;
+	}
+
 
 	public string GetTilePath(int tileID)
 	{
-		return Path.Combine(root, "img/" + GetLocalization()[tileID].file);
+		return Path.Combine(root, "img/" + GetTileLocalization()[tileID].file);
 	}
 
 	#region Static

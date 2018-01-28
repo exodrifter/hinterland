@@ -19,10 +19,12 @@ public class PlayerInfo : MonoBehaviour
 		// TODO: Localization
 		var incomeSign = player.income < 0 ? "-" : "+";
 		var reputationSign = player.reputation < 0 ? "-" : "+";
-		moneyText.text = string.Format("Money: ${0}, Income: ({1}{2})",
+		moneyText.text = string.Format(manager.Game.pack.GetMsgLocalization()[0].message + ", "
+			+ manager.Game.pack.GetMsgLocalization()[1].message + " ({1}{2})",
 			player.money, incomeSign, Mathf.Abs(player.income)
 		);
-		populationText.text = string.Format("Population: {0}, Reputation: ({1}{2})",
+		populationText.text = string.Format(manager.Game.pack.GetMsgLocalization()[2].message + " {0}, "
+			+ manager.Game.pack.GetMsgLocalization()[3].message + " ({1}{2})",
 			player.population, reputationSign, Mathf.Abs(player.reputation)
 		);
 	}

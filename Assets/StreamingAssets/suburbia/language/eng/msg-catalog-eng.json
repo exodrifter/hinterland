@@ -1,0 +1,23 @@
+[
+	{
+		"message": "Money: ${0}"
+	},
+	{
+		"message": "Income:"
+	},
+	{
+		"message": "Population:"
+	},
+	{
+		"message": "Reputation:"
+	},
+	{
+		"message": "Not enough money."
+	},
+	{
+		"message": "Out of x2 counters."
+	},
+	{
+		"message": "Chosen tile already has a x2 counter."
+	}
+]

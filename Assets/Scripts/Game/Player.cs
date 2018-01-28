@@ -20,7 +20,7 @@ public class Player
 	{
 		HexGridTile hexGridTile = map.Get(q, r);
 		var tiledata = new TileData (game.pack.GetMetadata () [hexGridTile.tileID], this,
-			hexGridTile.tileID, game.pack.GetLocalization () [hexGridTile.tileID], q, r, hexGridTile.isDoubled);
+			hexGridTile.tileID, game.pack.GetTileLocalization () [hexGridTile.tileID], q, r, hexGridTile.isDoubled);
 		return tiledata;
 	}
 
@@ -85,7 +85,7 @@ public class Player
 			var id = hexGrid.tileID;
 			var isDoubled = hexGrid.isDoubled;
 
-			list.Add(new TileData(game.pack.GetMetadata()[id], this, id, game.pack.GetLocalization()[id], q, r, isDoubled));
+			list.Add(new TileData(game.pack.GetMetadata()[id], this, id, game.pack.GetTileLocalization()[id], q, r, isDoubled));
 		}
 		return list.ToArray();
 	}

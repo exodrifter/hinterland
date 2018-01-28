@@ -27,12 +27,7 @@ public class HexGrid
 
 	public HexGridTile GetNeighbor(int q, int r, HexDirection direction)
 	{
-		HexGridTile hexGridTile = Get (q + direction.GetDQ (), r + direction.GetDR ());
-		if (hexGridTile != null)
-		{
-			return hexGridTile;
-		}
-		return hexGridTile;
+		return Get (q + direction.GetDQ (), r + direction.GetDR ());
 	}
 
 	public List<HexGridTile> GetNeighbors(int q, int r)

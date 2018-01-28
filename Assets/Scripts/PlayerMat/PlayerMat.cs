@@ -40,7 +40,7 @@ public class PlayerMat : MonoBehaviour
 			go.GetComponent<HexRenderer>().SetTileID(tile.TileID);
 
 			// Set tooltip
-			go.GetComponent<TooltipInfo>().text = manager.Game.pack.GetLocalization()[tile.TileID].desc;
+			go.GetComponent<TooltipInfo>().text = manager.Game.pack.GetTileLocalization()[tile.TileID].desc;
 
 			// Set Clickable Hex Post
 			var click = go.GetComponent<ClickableHex>();

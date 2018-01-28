@@ -38,7 +38,7 @@ public class Market : MonoBehaviour
 			marketHex.tileID = tileID;
 			marketHex.marketIndex = i;
 			marketHex.market = this;
-			go.GetComponentInChildren<TooltipInfo>().text = manager.Game.pack.GetLocalization()[tileID].desc;
+			go.GetComponentInChildren<TooltipInfo>().text = manager.Game.pack.GetTileLocalization()[tileID].desc;
 		}
 
 		pool.UpdateActiveState();
@@ -86,12 +86,18 @@ public class Market : MonoBehaviour
 		// Remove all keys from market stacks with negative or zero counts
 		foreach (var i in manager.Game.pack.GetMarketStacks())
 		{
+			List<int> toRemove = new List<int> ();
 			foreach (var key in i.counts.Keys)
 			{
 				if (i.counts[key] <= 0)
 				{
-					i.counts.Remove(key);
+					toRemove.Add (key);
 				}
+			}
+
+			foreach (var key in toRemove)
+			{
+				i.counts.Remove (key);
 			}
 		}
 
